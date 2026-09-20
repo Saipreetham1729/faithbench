@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "faithbench"
+version = "0.1.0"
+description = "Claim-level faithfulness checking for RAG answers -- compare ROUGE-L, NLI, LLM-judge, RAGAS-style, and self-consistency methods against your own evidence, without committing to one method or one LLM provider."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [{ name = "Sai" }]
+keywords = ["rag", "hallucination", "faithfulness", "llm", "evaluation", "nlp"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+rouge = ["rouge-score>=0.1.2"]
+nli = ["sentence-transformers>=2.2", "numpy"]
+# LLM-based methods (llm_judge, ragas, self_consistency) take a user-supplied
+# callable instead of a specific provider's SDK, so there is no [llm] extra --
+# nothing to install beyond whatever client you already use for your model.
+all = ["faithbench[rouge,nli]"]
+dev = ["faithbench[all]", "pytest"]
+
+[project.urls]
+Homepage = "https://github.com/your-username/faithbench"
+Repository = "https://github.com/your-username/faithbench"
+
+[tool.setuptools.packages.find]
+where = ["src"]
